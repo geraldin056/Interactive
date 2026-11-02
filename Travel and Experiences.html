@@ -1,0 +1,598 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Travel and Experiences</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a passport booklet. Home = three boarding-pass cards; each unit = a grid of activity tiles; each activity fills one focused card. */
+:root{
+  --bg:#eef4f8; --surface:#ffffff; --ink:#14283a; --muted:#53677a; --line:#d3dfe8;
+  --u1:#1f6fd8; --u2:#0b7f62; --u3:#c8590b; --on:#ffffff;
+  --ok:#17803f; --bad:#c93a3a; --sun:#ffc43d;
+  --display:'Fredoka','Trebuchet MS',system-ui,sans-serif; --body:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --uc:var(--u1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1722; --surface:#14232f; --ink:#e8f1f7; --muted:#9ab0c0; --line:#25394a;
+  --u1:#6aa8ff; --u2:#3ed1a9; --u3:#ffa84d; --on:#0b1822; --ok:#4cd388; --bad:#ff8080; --sun:#ffd36b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1722; --surface:#14232f; --ink:#e8f1f7; --muted:#9ab0c0; --line:#25394a;
+  --u1:#6aa8ff; --u2:#3ed1a9; --u3:#ffa84d; --on:#0b1822; --ok:#4cd388; --bad:#ff8080; --sun:#ffd36b; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:500 16px/1.5 var(--body);padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;min-height:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+#shell{max-width:920px;margin:0 auto}
+.u1{--uc:var(--u1)}.u2{--uc:var(--u2)}.u3{--uc:var(--u3)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+.muted{color:var(--muted)}.center{text-align:center}
+svg.i{width:1.4em;height:1.4em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;align-items:center;gap:8px;padding-block:10px;flex-wrap:wrap}
+.top .ttl{flex:1;min-width:0;font:600 1.1rem var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800}
+.chip[aria-pressed="true"]{background:var(--uc);border-color:var(--uc);color:var(--on)}
+.chip.xp{border-color:var(--sun)}
+.back{border:0;background:none;font-weight:800;color:var(--uc);min-height:40px;padding:0 4px;display:inline-flex;align-items:center;gap:4px}
+
+/* home */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center;padding-block:14px 8px}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem)}
+.hero p{max-width:46ch;margin:10px 0 0;color:var(--muted)}
+.hero svg{width:100%;height:auto}
+@media(max-width:640px){.hero{grid-template-columns:1fr}.hero svg{max-width:340px}}
+.passes{display:grid;gap:16px;margin-top:18px}
+.pass{display:grid;grid-template-columns:130px 1fr auto;background:var(--surface);border:2px solid var(--line);border-radius:18px;overflow:hidden;text-align:left;width:100%;padding:0;transition:transform .15s}
+.pass:hover{transform:translateY(-2px)}
+.pass .stub{background:var(--uc);color:var(--on);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 8px;border-right:3px dashed color-mix(in srgb,var(--on) 55%,transparent)}
+.pass .stub .em{font-size:2.6rem;line-height:1}
+.pass .stub b{font:600 .85rem var(--display);letter-spacing:.12em;text-transform:uppercase}
+.pass .mid{padding:16px 18px;min-width:0}
+.pass h2{font-size:1.4rem}
+.pass .g{color:var(--uc);font-weight:800;margin-top:2px}
+.pass .t{color:var(--muted);font-size:.9rem;margin-top:4px}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;background:var(--uc);border-radius:99px;transition:width .4s}
+.pass .go{align-self:center;margin-right:18px;background:var(--uc);color:var(--on);border-radius:999px;padding:10px 18px;font-weight:800}
+.stamp{display:inline-block;border:3px double var(--uc);color:var(--uc);border-radius:10px;padding:2px 10px;font:600 .8rem var(--display);letter-spacing:.14em;text-transform:uppercase;transform:rotate(-4deg);margin-left:8px;vertical-align:middle}
+@media(max-width:560px){.pass{grid-template-columns:84px 1fr}.pass .go{grid-column:1/-1;margin:0 16px 16px;text-align:center}.pass .stub .em{font-size:2rem}}
+.note{margin-top:22px;color:var(--muted);font-size:.9rem}
+
+/* unit */
+.uhead{padding-block:6px 4px}
+.uhead h1{font-size:clamp(1.7rem,5vw,2.4rem)}
+.uhead .g{color:var(--uc);font-weight:800}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:16px}
+.tile{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:14px 16px;min-width:0;transition:transform .15s,border-color .15s}
+.tile:hover{transform:translateY(-2px);border-color:var(--uc)}
+.tile .ic{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:color-mix(in srgb,var(--uc) 16%,var(--surface));color:var(--uc)}
+.tile h3{font-size:1.1rem}
+.tile p{margin:0;color:var(--muted);font-size:.9rem}
+.stars{display:flex;gap:2px;margin-top:2px}
+.stars svg{width:20px;height:20px;fill:var(--line);stroke:none}
+.stars svg.on{fill:var(--sun)}
+
+/* activity card */
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:clamp(16px,4vw,28px);margin-top:10px}
+.prog{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.prog i{display:block;height:100%;background:var(--uc);transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:.9rem;margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.row.center{justify-content:center}
+.btn{min-height:46px;padding:0 20px;border-radius:999px;border:2px solid var(--uc);background:var(--uc);color:var(--on);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:transparent;color:var(--uc)}
+.btn.big{min-height:54px;padding:0 28px;font-size:1.1rem}
+.btn:disabled{opacity:.4;cursor:default}
+.spk{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:2px solid var(--uc);background:transparent;color:var(--uc);flex:none}
+.spk.round{width:52px;height:52px}
+.pulse{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.18)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:shake .3s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* flashcards */
+.flash{display:block;width:100%;min-height:260px;border:2px solid var(--uc);border-radius:22px;background:color-mix(in srgb,var(--uc) 9%,var(--surface));padding:20px}
+.flash .face{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:220px}
+.flash .back{display:none}.flash.is-flip .front{display:none}.flash.is-flip .back{display:flex}
+.big-emoji{font-size:5.5rem;line-height:1}
+.word{font:600 2.2rem var(--display)}
+.ex{font-size:1.15rem;max-width:34ch;text-align:center}
+
+/* rule */
+.picker{background:color-mix(in srgb,var(--uc) 9%,var(--surface));border:2px solid var(--uc);border-radius:16px;padding:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{min-height:42px;padding:0 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800}
+.pill.sel{background:var(--uc);border-color:var(--uc);color:var(--on)}
+.result{font:600 1.5rem var(--display);margin-top:14px;min-height:2.2em}
+.result b,.sec b{color:var(--uc)}
+.sec{border-top:2px solid var(--line);padding-block:16px 4px;margin-top:16px}
+.sec h3{font-size:1.2rem}
+.exline{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:1.1rem}
+details{margin-top:8px;color:var(--muted)}summary{cursor:pointer;font-weight:700}
+
+/* match */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.col h4{margin:0;color:var(--muted);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.m{min-height:52px;border:2px solid var(--line);background:var(--surface);border-radius:14px;font-weight:800;font-size:1.05rem;padding:6px 10px}
+.m.sel{border-color:var(--uc);background:color-mix(in srgb,var(--uc) 16%,var(--surface))}
+.m.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--surface));color:var(--ok);pointer-events:none}
+
+/* quiz */
+.qtext{font:600 clamp(1.3rem,4vw,1.8rem) var(--display);margin:6px 0 16px}
+.blank{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--uc);text-align:center;color:var(--uc)}
+.blank.ok{color:var(--ok);border-color:var(--ok)}.blank.bad{color:var(--bad);border-color:var(--bad)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.opt{min-height:56px;border:2px solid var(--line);border-radius:14px;background:var(--surface);font-weight:800;font-size:1.05rem;padding:8px 12px;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center}
+.opt:hover:enabled{border-color:var(--uc)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--surface))}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,var(--surface))}
+.opt.em1{font-size:2.6rem;min-height:84px}
+.opt .em{font-size:2rem}
+.fb{min-height:1.8em;margin-top:14px;font-weight:800}.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.bigplay{display:flex;flex-direction:column;align-items:center;gap:6px;margin:6px auto 18px;width:150px;height:150px;border-radius:50%;border:3px solid var(--uc);background:color-mix(in srgb,var(--uc) 12%,var(--surface));color:var(--uc);justify-content:center;font-weight:800}
+.bigplay svg{width:52px;height:52px}
+.said{text-align:center;font:600 1.3rem var(--display);min-height:1.6em;margin-bottom:12px}
+.sortcard{display:flex;align-items:center;justify-content:center;gap:14px;margin:6px 0 18px;flex-wrap:wrap}
+.sortword{font:600 clamp(1.4rem,5vw,2rem) var(--display);text-align:center}
+.mount{position:relative;aspect-ratio:100/60;max-width:100%;width:min(100%,360px);margin:0 auto 10px}
+.mount svg{position:absolute;inset:0;width:100%;height:100%}
+.climber{position:absolute;font-size:1.7rem;line-height:1;transform:translate(-50%,50%);transition:left .6s,bottom .6s}
+.flag{position:absolute;left:50%;top:0;font-size:1.3rem;line-height:1}
+
+/* build */
+.line{min-height:62px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.line.ok{border-color:var(--ok)}
+.w{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid var(--uc);background:var(--surface);font-weight:800;font-size:1.05rem}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;min-height:50px}
+.es{font:600 1.25rem var(--display);margin:4px 0 14px}
+
+/* create + write */
+.postcard{border:3px solid var(--uc);border-radius:16px;padding:20px;background:color-mix(in srgb,var(--uc) 8%,var(--surface));font:600 1.35rem/1.5 var(--display)}
+.postcard small{display:block;color:var(--uc);letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;margin-bottom:8px}
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font:500 1.05rem/1.5 var(--body);padding:12px;resize:vertical}
+.checks{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px;font-weight:700}
+.checks li::before{content:"○ ";color:var(--muted)}
+.checks li.y{color:var(--ok)}.checks li.y::before{content:"✓ ";}
+.checks li.n{color:var(--bad)}.checks li.n::before{content:"✗ "}
+.model{margin-top:14px;padding:14px;border-radius:14px;background:color-mix(in srgb,var(--uc) 9%,var(--surface))}
+
+.photo{flex-direction:column;min-height:120px;background:linear-gradient(160deg,color-mix(in srgb,var(--uc) 28%,var(--surface)),var(--surface))}.photo .em{font-size:3.2rem;line-height:1}
+.obj{margin:8px 0 10px}.tile.final{border-color:var(--uc)}
+/* result */
+.res h2{font-size:2rem;text-align:center}
+.res .big{display:flex;justify-content:center;gap:6px;margin:14px 0}
+.res .big svg{width:56px;height:56px;fill:var(--line);stroke:none}.res .big svg.on{fill:var(--sun)}
+</style>
+
+<div id="shell"><div class="top" id="top"></div><main id="app"></main></div>
+
+<script>
+/* ---------- state ---------- */
+const KEY='eng-travel-passport-v1';
+let S={xp:0,stars:{},mute:false,slow:false};
+try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r)S=Object.assign(S,r)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmt=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const plain=s=>s.replace(/\*\*/g,'');
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>s.replace(/[’‘]/g,"'");
+
+/* ---------- sound ---------- */
+let ac;
+function tone(f,t,d,type,v){if(S.mute)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime+t;o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.15,n);g.gain.exponentialRampToValueAtTime(.001,n+d);o.connect(g);g.connect(ac.destination);o.start(n);o.stop(n+d+.02)}catch(e){}}
+const sfx={ok(){tone(660,0,.12);tone(880,.1,.2)},bad(){tone(190,0,.28,'sawtooth',.07)},win(){[523,659,784,1047].forEach((f,i)=>tone(f,i*.12,.28))},tap(){tone(440,0,.05,'triangle',.08)}};
+function speak(t){if(S.mute||!('speechSynthesis' in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(plain(t));u.lang='en-US';u.rate=S.slow?.62:.95;const v=speechSynthesis.getVoices().find(v=>/^en[-_]US/i.test(v.lang))||speechSynthesis.getVoices().find(v=>/^en/i.test(v.lang));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-say]');if(b){speak(b.dataset.say);b.classList.remove('pulse');void b.offsetWidth;b.classList.add('pulse')}});
+
+/* ---------- icons ---------- */
+const ic=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+const IC={
+ learn:ic('<rect x="3" y="7" width="14" height="12" rx="2"/><path d="M7 3h14v12"/>'),
+ rule:ic('<path d="M4 6h16M4 12h16M4 18h10"/>'),
+ match:ic('<circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/><path d="M10 12h4"/>'),
+ fill:ic('<path d="M3 19h5M16 19h5"/><rect x="9" y="7" width="6" height="9" rx="1"/>'),
+ listen:ic('<path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/>'),
+ build:ic('<rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/>'),
+ sort:ic('<path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/>'),
+ climb:ic('<path d="M2 20l8-14 4 7 3-4 5 11z"/>'),
+ create:ic('<path d="M12 3l2.5 6 6.5.5-5 4.3 1.6 6.4-5.6-3.7-5.6 3.7L8 13.8 3 9.5 9.5 9z"/>'),
+ write:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/>'),
+ back:ic('<path d="M15 5l-7 7 7 7"/>'),
+ sound:ic('<path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 010 6"/>'),
+ mute:ic('<path d="M4 10v4h3l5 4V6L7 10z"/><path d="M17 9l4 6M21 9l-4 6"/>'),
+ slow:ic('<path d="M3 14c2-6 8-8 13-5l2-3 1 6-6 1 2-2c-3-2-7-1-9 3z"/>')
+};
+const STAR='<svg viewBox="0 0 24 24"><path d="M12 2l3 6.8 7.4.7-5.6 4.9 1.7 7.2L12 17.8 5.5 21.6l1.7-7.2L1.6 9.5 9 8.8z"/></svg>';
+const starsHTML=(n,cls)=>`<span class="${cls||'stars'}" aria-label="${n} of 3 stars">${[0,1,2].map(i=>STAR.replace('<svg','<svg class="'+(i<n?'on':'')+'"')).join('')}</span>`;
+
+/* ---------- content ---------- */
+const yn=(q,e,yes,no)=>({q,e,opts:[{e:'👍',l:"Yes, I have.",t:yes},{e:'👎',l:"No, I haven't.",t:no}]});
+const O=(e,l,t)=>({e,l,t:t||l.toLowerCase()});
+const UNITS=[
+{
+ id:'u1',n:1,name:'My Last Vacation',gram:'Simple Past',tag:'was / were · regular and irregular verbs · did',cover:'🏖️',
+ sortDesc:'Which sound does -ed make?',
+ obj:'Talk about trips and activities you did in the past.',
+ examples:['I traveled to Bogotá.','I visited my grandparents.','I went to the beach.'],
+ create:{name:'My Last Trip',desc:'Describe a past vacation using photos'},
+ vocab:[['🏖️','beach','playa','The beach was beautiful.'],['🏝️','island','isla','We visited an **island**.'],['⛰️','mountain','montaña','I climbed a **mountain**.'],['🏨','hotel','hotel','We stayed in a **hotel**.'],['🎫','ticket','boleto','I bought a **ticket**.'],['🧳','suitcase','maleta','My **suitcase** was heavy.'],['🏛️','museum','museo','We visited a **museum**.'],['🚤','boat','bote','We took a **boat** to the island.'],['🍽️','restaurant','restaurante','The **restaurant** was crowded.'],['🎁','souvenir','recuerdo','I bought a **souvenir**.'],['🤩','amazing','increíble','The trip was **amazing**.'],['👥','crowded','lleno de gente','The beach was **crowded**.'],['😴','tired','cansado/a','We were **tired** after the trip.'],['🥳','excited','emocionado/a','I was **excited**.'],['☀️','sunny','soleado','It was **sunny** and hot.'],['🌧️','rainy','lluvioso','It was a **rainy** day.']],
+ rule:{
+  picker:{title:'Tap a subject. Which one is correct: was or were?',items:[['I','was'],['You','were'],['He','was'],['She','was'],['It','was'],['We','were'],['They','were']],tpl:'{p} **{a}** at the beach.'},
+  secs:[
+   {h:'was / were',b:'Use **was** with I, he, she, it. Use **were** with you, we, they.',ex:['The beach **was** beautiful.','We **were** tired.'],es:'Was y were son el pasado de "to be": estuve, estuvo, estuvimos.'},
+   {h:'Regular verbs: add -ed',b:'visit → visit**ed** · walk → walk**ed** · try → tr**ied** · plan → plan**ned**',ex:['We **visited** a museum.','I **tried** the local food.'],es:'Los verbos regulares terminan en -ed. Suena /t/, /d/ o /ɪd/.'},
+   {h:'Irregular verbs: learn them',b:'go → **went** · eat → **ate** · take → **took** · swim → **swam** · buy → **bought**',ex:['I **went** to the island.','She **bought** a souvenir.'],es:'Los verbos irregulares cambian de forma; hay que memorizarlos.'},
+   {h:'Questions and negatives with did',b:'**Did** + subject + base verb. Negative: **didn\'t** + base verb.',ex:['Where **did** you go?','**Did** you swim? Yes, I **did**.','I **didn\'t** climb the mountain.'],es:'Después de did / didn\'t el verbo vuelve a su forma base: Did you go? (no "Did you went").'}
+  ]},
+ match:{h:['Base verb','Past form'],eng:true,pairs:[['visit','visited'],['walk','walked'],['stay','stayed'],['climb','climbed'],['go','went'],['eat','ate'],['take','took'],['swim','swam']]},
+ fill:[
+  {q:'Yesterday we ___ to the beach.',opts:['went','go','goed'],ans:0},
+  {q:'The hotel ___ very beautiful.',opts:['was','were','is'],ans:0},
+  {q:'We ___ tired after the long trip.',opts:['were','was','are'],ans:0},
+  {q:'I ___ a museum last Sunday.',opts:['visited','visit','visiting'],ans:0},
+  {q:'___ you swim in the sea?',opts:['Did','Do','Were'],ans:0},
+  {q:'She ___ a delicious dinner.',opts:['ate','eated','eat'],ans:0},
+  {q:"They didn't ___ the mountain.",opts:['climb','climbed','climbing'],ans:0},
+  {q:'The weather ___ sunny and hot.',opts:['was','were','be'],ans:0}],
+ listen:[
+  {say:'We stayed in a hotel near the beach.',opts:['🏨','⛺','🏠'],ans:0},
+  {say:'The boat trip was amazing, but it was rainy.',opts:['☀️ sunny','🌧️ rainy','❄️ snowy'],ans:1},
+  {say:'I bought a souvenir at the museum.',opts:['🎁 a souvenir','🎫 a ticket','🧳 a suitcase'],ans:0},
+  {say:'They went to the island yesterday.',opts:['They go to the island.','They went to the island.','They will go to the island.'],ans:1},
+  {say:'Did you climb the mountain?',opts:['Yes, I did.','Yes, I was.','Yes, I do.'],ans:0},
+  {say:"We weren't tired.",opts:['We were tired.',"We weren't tired.","We aren't tired."],ans:1}],
+ build:[['We went to the beach last summer.','Fuimos a la playa el verano pasado.'],['The food was delicious.','La comida estuvo deliciosa.'],["I didn't climb the mountain.",'No escalé la montaña.'],['Did you visit the museum?','¿Visitaste el museo?'],['She took a boat to the island.','Ella tomó un bote a la isla.'],['Where did you stay?','¿Dónde te quedaste?']],
+ sort:{cats:['/t/','/d/','/ɪd/'],items:[['walked',0],['watched',0],['relaxed',0],['climbed',1],['played',1],['enjoyed',1],['stayed',1],['planned',1],['visited',2],['tasted',2]]},
+ climb:[
+  {q:'Yesterday, I ___ my grandmother.',opts:['visited','visit','visits'],ans:0},
+  {q:'What is the past of "go"?',opts:['went','goed','gone'],ans:0},
+  {q:'They ___ happy at the party.',opts:['were','was','are'],ans:0},
+  {q:'___ she enjoy the trip?',opts:['Did','Does','Was'],ans:0},
+  {q:'What is the past of "eat"?',opts:['ate','eaten','eated'],ans:0},
+  {q:'We ___ the mountain last year.',opts:['climbed','climbing','climb'],ans:0},
+  {q:'I ___ like the food. It was bad.',opts:["didn't","wasn't","don't"],ans:0},
+  {q:'What sound does the -ed in "visited" make?',opts:['/ɪd/','/t/','/d/'],ans:0},
+  {q:'Where ___ you go on vacation?',opts:['did','were','do'],ans:0},
+  {q:'What is the past of "take"?',opts:['took','taked','taken'],ans:0}],
+ comp:{title:'My Last Trip',steps:[
+  {q:'Choose a photo. Where did you go?',opts:[O('🏙️','Bogotá','traveled to Bogotá'),O('👵','My grandparents','visited my grandparents'),O('🏖️','The beach','went to the beach'),O('🏝️','An island','went to an island')]},
+  {q:'How was the weather?',opts:[O('☀️','Sunny'),O('🌧️','Rainy'),O('🥵','Hot')]},
+  {q:'What did you do?',opts:[O('🏊','Swam in the sea','swam in the sea'),O('🧗','Climbed a mountain','climbed a mountain'),O('🏛️','Visited a museum','visited a museum'),O('🍲','Ate delicious food','ate delicious food')]},
+  {q:'How did you feel?',opts:[O('🤩','Excited'),O('😴','Tired'),O('😄','Happy')]}],
+  make:a=>`Last summer I ${a[0].t}. The weather was ${a[1].t}. I ${a[2].t}. I was ${a[3].t}!`},
+ write:{prompt:'Write 3 sentences about your last vacation. Use was / were and at least two past verbs.',
+  checks:[{l:'Uses was or were',re:/\b(was|were|wasn't|weren't)\b/i},{l:'Uses a past verb (went, ate, visited…)',re:/\b(went|ate|took|swam|bought|saw|had|met|didn't)\b|\b\w{3,}ed\b/i},{l:'At least 12 words',min:12}],
+  model:'Last July I went to Cartagena with my family. The beach was beautiful and the food was delicious. We swam in the sea and visited a museum.'}
+},
+{
+ id:'u2',n:2,name:'My Travel Experiences',gram:'Present Perfect',tag:'have / has + past participle · Have you ever…?',cover:'✈️',
+ sortDesc:'Experience or finished event?',
+ obj:'Share life experiences without saying when they happened.',
+ examples:['I have visited Cartagena.','Have you ever traveled by plane?','I have never been to Brazil.'],
+ create:{name:'Have You Ever…?',desc:'Interview yourself and get your report'},
+ vocab:[['✈️','flight','vuelo','My **flight** was long.'],['🛂','passport','pasaporte','I have a **passport**.'],['🛫','airport','aeropuerto','We have been to a big **airport**.'],['🛩️','plane','avión','She has flown in a **plane**.'],['🚆','train','tren','I have taken a **train**.'],['⛴️','ferry','ferri','He has taken a **ferry**.'],['🛏️','hostel','hostal','We have stayed in a **hostel**.'],['🎒','backpack','mochila','I have a red **backpack**.'],['🗽','landmark','sitio emblemático','I have seen a famous **landmark**.'],['🌍','abroad','en el extranjero','Have you ever been **abroad**?'],['🗺️','country','país','I have visited three **countries**.'],['🎭','culture','cultura','I love learning about new **cultures**.']],
+ rule:{
+  picker:{title:'Tap a subject. Which one is correct: have or has?',items:[['I','have'],['You','have'],['We','have'],['They','have'],['He','has'],['She','has'],['It','has']],tpl:'{p} **{a}** visited Cartagena.'},
+  secs:[
+   {h:'have / has + past participle',b:'I **have** visited Cartagena. She **has** traveled by plane.',ex:['I **have visited** Cartagena.','She **has traveled** by plane.'],es:'Presente perfecto: he visitado, ha viajado. Habla de experiencias sin decir cuándo.'},
+   {h:'Irregular participles',b:'be → **been** · eat → **eaten** · see → **seen** · take → **taken** · fly → **flown** · ride → **ridden** · swim → **swum**',ex:['I have **been** to Medellín.','He has **flown** in a plane.'],es:'Los participios irregulares hay que memorizarlos.'},
+   {h:'never',b:'Use **never** for experiences you have not had.',ex:['I have **never** been to Brazil.','She has **never** eaten octopus.'],es:'Never = nunca. Va entre have/has y el participio.'},
+   {h:'Questions: Have you ever…?',b:'**Have** you ever eaten sushi? Yes, I **have**. / No, I **haven\'t**.',ex:['Have you ever flown in a plane?','Yes, I have.',"No, I haven't."],es:'Have you ever…? = ¿Alguna vez has…?'},
+   {h:'Experience or finished event?',b:'No time: I **have visited** Cartagena. With a time: I **visited** Cartagena **last July**.',ex:['I have visited Cartagena.','I visited Cartagena last July.'],es:'Con una fecha o tiempo terminado (last July, yesterday) se usa el pasado simple.'}
+  ]},
+ match:{h:['Base verb','Participle'],eng:true,pairs:[['be','been'],['eat','eaten'],['see','seen'],['take','taken'],['fly','flown'],['ride','ridden'],['swim','swum'],['buy','bought']]},
+ fill:[
+  {q:'I ___ visited Cartagena.',opts:['have','has','am'],ans:0},
+  {q:'She ___ never been to Brazil.',opts:['has','have','is'],ans:0},
+  {q:'___ you ever eaten sushi?',opts:['Have','Has','Did'],ans:0},
+  {q:'We have ___ in a plane.',opts:['flown','flew','fly'],ans:0},
+  {q:'He has ___ the Eiffel Tower.',opts:['seen','saw','see'],ans:0},
+  {q:"Have you ever been abroad? No, I ___.",opts:["haven't","didn't","don't"],ans:0},
+  {q:'I have ___ eaten octopus.',opts:['never','ever','not'],ans:0},
+  {q:'They have ___ a train to the coast.',opts:['taken','took','take'],ans:0}],
+ listen:[
+  {say:'I have never flown in a plane.',opts:['I have flown.','I have never flown.','I flew yesterday.'],ans:1},
+  {say:'Have you ever ridden a horse?',opts:['Yes, I have.','Yes, I did.','Yes, I am.'],ans:0},
+  {say:'She has traveled by train.',opts:['🚆','✈️','🚌'],ans:0},
+  {say:'He has been to many countries.',opts:['🌍 many countries','🏠 his house','🏫 school'],ans:0},
+  {say:'I visited Cartagena last July.',opts:['I have visited Cartagena.','I visited Cartagena last July.','I will visit Cartagena.'],ans:1},
+  {say:"They haven't tried that food.",opts:['They have tried it.',"They haven't tried it.","They didn't try it."],ans:1}],
+ build:[['I have visited Cartagena.','He visitado Cartagena.'],['She has never been to Brazil.','Ella nunca ha estado en Brasil.'],['Have you ever eaten sushi?','¿Alguna vez has comido sushi?'],['We have taken many photos.','Hemos tomado muchas fotos.'],['Ana has traveled by plane.','Ana ha viajado en avión.'],['He has seen the ocean.','Él ha visto el océano.']],
+ sort:{cats:['Experience (no time)','Finished event (with time)'],items:[['I have visited Cartagena.',0],['I visited Cartagena last July.',1],['She has flown in a plane.',0],['We ate sushi yesterday.',1],['He has never been abroad.',0],['They took a train in 2024.',1],['Have you ever seen the ocean?',0],['I bought a souvenir on Saturday.',1]]},
+ climb:[
+  {q:'What is the participle of "be"?',opts:['been','was','being'],ans:0},
+  {q:'I ___ never eaten octopus.',opts:['have','has','did'],ans:0},
+  {q:'She ___ flown to Spain.',opts:['has','have','is'],ans:0},
+  {q:'___ they ever taken a ferry?',opts:['Have','Has','Did'],ans:0},
+  {q:'Which sentence is correct?',opts:['I saw it yesterday.','I have seen it yesterday.','I have saw it.'],ans:0},
+  {q:'What is the participle of "ride"?',opts:['ridden','rode','rided'],ans:0},
+  {q:'Have you ever been abroad? Yes, ___.',opts:['I have','I did','I am'],ans:0},
+  {q:'He ___ never been to Brazil.',opts:['has','have','are'],ans:0},
+  {q:'What is the participle of "swim"?',opts:['swum','swam','swimmed'],ans:0},
+  {q:'I ___ a souvenir last year.',opts:['bought','have bought','buyed'],ans:0}],
+ comp:{title:'Your travel report',steps:[
+  yn('Have you ever eaten sushi?','🍣','I have eaten sushi.','I have never eaten sushi.'),
+  yn('Have you ever flown in a plane?','✈️','I have flown in a plane.','I have never flown in a plane.'),
+  yn('Have you ever been to Brazil?','🇧🇷','I have been to Brazil.','I have never been to Brazil.'),
+  yn('Have you ever ridden a horse?','🐴','I have ridden a horse.','I have never ridden a horse.'),
+  yn('Have you ever taken a ferry?','⛴️','I have taken a ferry.','I have never taken a ferry.'),
+  yn('Have you ever seen the ocean?','🌊','I have seen the ocean.','I have never seen the ocean.')],
+  make:a=>a.map(x=>x.t).join(' ')},
+ write:{prompt:'Write 3 sentences about your travel experiences. Use have / has and never.',
+  checks:[{l:'Uses have / has / haven\'t / hasn\'t',re:/\b(have|has|haven't|hasn't)\b|'ve\b/i},{l:'Uses never',re:/\bnever\b/i},{l:'At least 12 words',min:12}],
+  model:'I have visited Cartagena and Medellín. I have never been to Brazil. My brother has flown in a plane, but he has never taken a ferry.'}
+},
+{
+ id:'u3',n:3,name:'Planning My Next Adventure',gram:'Be going to',tag:'am / is / are + going to · future plans',cover:'🧭',
+ sortDesc:'Past or future time words?',
+ obj:'Express plans and intentions for future trips.',
+ examples:["I'm going to visit Medellín.","We're going to stay in a hotel.","I'm going to travel next year."],
+ create:{name:'Dream Vacation',desc:'Plan and present your ideal trip'},
+ vocab:[['📍','destination','destino','My **destination** is Cartagena.'],['🗓️','itinerary','itinerario','Our **itinerary** has five days.'],['💰','budget','presupuesto','We have a small **budget**.'],['🧳','luggage','equipaje','I\'m going to pack my **luggage**.'],['🎫','ticket','boleto','She\'s going to buy a **ticket**.'],['🛏️','hostel','hostal','We\'re going to stay in a **hostel**.'],['📸','sightseeing','turismo','They\'re going to do some **sightseeing**.'],['🧗','adventure','aventura','I\'m going on an **adventure**.'],['🚗','rent','alquilar','He\'s going to **rent** a car.'],['📖','book','reservar','I\'m going to **book** a hotel.'],['📦','pack','empacar','We\'re going to **pack** tonight.'],['🧭','explore','explorar','We\'re going to **explore** the old city.'],['🚌','tour','recorrido turístico','They\'re going to take a **tour**.'],['🎁','souvenir','recuerdo','I\'m going to buy a **souvenir**.']],
+ rule:{
+  picker:{title:'Tap a subject. Which one is correct: am, is or are?',items:[['I','am'],['You','are'],['We','are'],['They','are'],['He','is'],['She','is'],['It','is']],tpl:'{p} **{a}** going to travel.'},
+  secs:[
+   {h:'am / is / are + going to + verb',b:'I\'m **going to** visit Medellín. We\'re **going to** stay in a hotel.',ex:["I'm going to visit Medellín.","We're going to stay in a hotel."],es:'Be going to = ir a + verbo. Se usa para planes e intenciones.'},
+   {h:'Negative',b:'am / is / are + **not** + going to + verb',ex:["I'm not going to rent a car.","She isn't going to fly."],es:'Negativo: no voy a… Se agrega not después de am/is/are.'},
+   {h:'Questions',b:'**Are** you going to travel this summer? Yes, I **am**. / No, I\'m **not**.',ex:['Are you going to travel this summer?','Where are you going to stay?',"Yes, I am.","No, I'm not."],es:'La pregunta empieza con am/is/are: ¿Vas a viajar este verano?'},
+   {h:'Future time expressions',b:'tomorrow · this weekend · next week · next month · next year · this summer · in December · soon',ex:["I'm going to fly next month.","They're going to travel in December."],es:'Estas palabras indican que el plan es en el futuro.'}
+  ]},
+ match:{h:['English','Español'],eng:false,pairs:[['book','reservar'],['pack','empacar'],['rent','alquilar'],['explore','explorar'],['travel','viajar'],['buy','comprar'],['stay','quedarse'],['take a tour','hacer un recorrido']]},
+ fill:[
+  {q:"I ___ going to visit Medellín.",opts:['am','is','are'],ans:0},
+  {q:'She ___ going to book a hotel.',opts:['is','are','am'],ans:0},
+  {q:'We ___ going to fly next month.',opts:['are','is','am'],ans:0},
+  {q:"They aren't going to ___ a car.",opts:['rent','renting','rented'],ans:0},
+  {q:'___ you going to travel this summer?',opts:['Are','Is','Do'],ans:0},
+  {q:'Where are you going ___ stay?',opts:['to','for','at'],ans:0},
+  {q:"I'm not going to ___ any souvenirs.",opts:['buy','buying','bought'],ans:0},
+  {q:'Is she going to take a tour? Yes, she ___.',opts:['is','does','will'],ans:0}],
+ listen:[
+  {say:"I'm going to fly to Paris next year.",opts:['I flew to Paris.',"I'm going to fly to Paris.",'I have flown to Paris.'],ans:1},
+  {say:"We're going to stay in a hostel.",opts:['🏨 hotel','🛏️ hostel','⛺ tent'],ans:1},
+  {say:"She's going to rent a car.",opts:['🚗','🚲','🚌'],ans:0},
+  {say:'Are you going to travel this summer?',opts:['Yes, I am.','Yes, I do.','Yes, I was.'],ans:0},
+  {say:"They're not going to pack today.",opts:['They are going to pack.',"They aren't going to pack.","They didn't pack."],ans:1},
+  {say:"He's going to buy a ticket in December.",opts:['📅 December','📅 July','📅 tomorrow'],ans:0}],
+ build:[["I'm going to visit Medellín next month.",'Voy a visitar Medellín el próximo mes.'],["We're going to stay in a hotel.",'Nos vamos a quedar en un hotel.'],["She isn't going to rent a car.",'Ella no va a alquilar un carro.'],['Are you going to travel this summer?','¿Vas a viajar este verano?'],['Where are you going to go?','¿Adónde vas a ir?'],["They're going to take a tour tomorrow.",'Van a hacer un recorrido mañana.']],
+ sort:{cats:['Past','Future plan'],items:[['next year',1],['last year',0],['tomorrow',1],['yesterday',0],['next week',1],['last summer',0],['this weekend',1],['in December',1],['two days ago',0],['soon',1]]},
+ climb:[
+  {q:'I ___ going to travel.',opts:['am','is','are'],ans:0},
+  {q:'They ___ going to stay.',opts:['are','is','am'],ans:0},
+  {q:"We aren't going to ___ a taxi.",opts:['take','took','taking'],ans:0},
+  {q:'___ she going to pack?',opts:['Is','Are','Does'],ans:0},
+  {q:'Which sentence is correct?',opts:["I'm going to visit Cali.","I'm going to visiting Cali.",'I going to visit Cali.'],ans:0},
+  {q:'Which is a future time expression?',opts:['next month','last month','yesterday'],ans:0},
+  {q:"Are you going to fly? No, ___.",opts:["I'm not","I don't","I wasn't"],ans:0},
+  {q:'Where ___ you going to stay?',opts:['are','is','do'],ans:0},
+  {q:'Negative of "He is going to swim":',opts:["He isn't going to swim.","He doesn't going to swim.",'He not going swim.'],ans:0},
+  {q:'We ___ going to explore the old city.',opts:['are','is','am'],ans:0}],
+ comp:{title:'Your dream vacation',steps:[
+  {q:'Where are you going to go?',opts:[O('🏖️','Cartagena'),O('🗼','Paris'),O('🗾','Tokyo'),O('🗽','New York')]},
+  {q:'When are you going to travel?',opts:[O('📅','Next month'),O('📅','Next year'),O('☀️','This summer'),O('🎄','In December')]},
+  {q:'How are you going to get there?',opts:[O('✈️','Fly there','fly there'),O('🚆','Take a train','take a train'),O('🚗','Rent a car','rent a car')]},
+  {q:'Where are you going to stay?',opts:[O('🏨','A hotel','a hotel'),O('🛏️','A hostel','a hostel'),O('🏡','A beach house','a beach house')]},
+  {q:'What are you going to do there?',opts:[O('🚌','Take a city tour','take a city tour'),O('🍲','Try local food','try local food'),O('📸','Go sightseeing','go sightseeing'),O('🎁','Buy souvenirs','buy souvenirs')]}],
+  make:a=>`I'm going to travel to ${a[0].t} ${a[1].t}. I'm going to ${a[2].t}. I'm going to stay in ${a[3].t}. I'm also going to ${a[4].t}.`},
+ write:{prompt:'Write 3 sentences about your dream vacation. Use be going to and a time expression.',
+  checks:[{l:'Uses going to',re:/\bgoing to\b/i},{l:'Uses a time expression (next year, tomorrow, in December…)',re:/\b(tomorrow|next (week|month|year|summer)|this (weekend|summer|year)|in (january|february|march|april|may|june|july|august|september|october|november|december)|soon)\b/i},{l:'At least 12 words',min:12}],
+  model:"Next year I'm going to travel to Cartagena. I'm going to stay in a hotel near the beach. We're going to take a boat tour and try delicious seafood."}
+}];
+const ACTS=['learn','rule','match','fill','listen','build','sort','climb','create','write'];
+const ACTMETA={
+ learn:['Vocabulary Cards','Flip, listen and repeat'],rule:['Grammar Lab','Tap and hear the pattern'],match:['Match Pairs','Connect the matching words'],
+ fill:['Fill the Gaps','Choose the right word'],listen:['Listen & Choose','Hear it, then pick it'],build:['Build the Sentence','Put the words in order'],
+ sort:['Sort It',''],climb:['Time to Climb','Answer to reach the summit'],create:['',''],write:['Write & Check','Your turn to write']};
+const meta=(u,k)=>k==='sort'?['Sort It',u.sortDesc]:k==='create'?[u.create.name,u.create.desc]:ACTMETA[k];
+const stk=(u,k)=>S.stars[u.id+'-'+k]||0;
+const unitPct=u=>Math.round(ACTS.reduce((a,k)=>a+stk(u,k),0)/(ACTS.length*3)*100);
+
+/* ---------- shell ---------- */
+let cur={u:null,k:null};
+function topbar(){
+  const u=cur.u;const home=!u;
+  const back=home?'':`<button class="back" id="bk">${IC.back}${cur.k?u.name:'All units'}</button>`;
+  $('#top').innerHTML=`${back}<div class="ttl">${home?'Travel and Experiences':(cur.k?meta(u,cur.k)[0]:'Part '+u.n+' · '+u.gram)}</div>
+  <span class="chip xp" title="Points">${S.xp} XP</span>
+  <button class="chip" id="sl" aria-pressed="${S.slow}" title="Slow voice">${IC.slow}Slow</button>
+  <button class="chip" id="mu" aria-pressed="${S.mute}" title="Sound on or off">${S.mute?IC.mute+'Muted':IC.sound+'Sound'}</button>`;
+  $('#sl').onclick=()=>{S.slow=!S.slow;save();topbar()};
+  $('#mu').onclick=()=>{S.mute=!S.mute;if(S.mute&&window.speechSynthesis)speechSynthesis.cancel();save();topbar()};
+  if(!home)$('#bk').onclick=()=>{location.hash=cur.k?u.id:'home'};
+}
+function route(){
+  if(window.speechSynthesis)try{speechSynthesis.cancel()}catch(e){}
+  const [a,b]=(location.hash.slice(1)||'home').split('-');
+  const u=UNITS.find(x=>x.id===a);
+  cur={u:u||null,k:u&&ACTS.includes(b)?b:(u&&b==='next'?null:null)};
+  $('#shell').className=u?u.id:'';
+  topbar();window.scrollTo(0,0);
+  if(!u)return home();
+  if(!cur.k)return unitPage(u);
+  const root=$('#app');root.innerHTML='<div class="card" id="stage"></div>';
+  ENG[cur.k]($('#stage'),{u,k:cur.k});
+}
+window.addEventListener('hashchange',route);
+
+function home(){
+  $('#app').innerHTML=`<section class="hero"><div><h1>Travel and Experiences</h1>
+  <p>Three parts to talk about your trips: the past, your life experiences and your future plans. Practice at your own pace, listen to every sentence and collect a stamp for each part.</p></div>
+  <svg viewBox="0 0 320 190" role="img" aria-label="A plane flying over a dashed route"><circle cx="248" cy="48" r="26" fill="var(--sun)"/><path d="M14 160 C 90 20, 200 20, 300 120" fill="none" stroke="var(--u1)" stroke-width="4" stroke-dasharray="3 12" stroke-linecap="round"/><g transform="translate(150 46) rotate(8)"><path d="M-26 0 L24 -7 L30 0 L24 7 Z" fill="var(--ink)"/><path d="M-4 -2 L-16 -22 L-8 -22 L8 -3Z M-4 2 L-16 22 L-8 22 L8 3Z" fill="var(--u2)"/><path d="M-26 0 L-34 -9 L-28 -9 L-18 -1Z" fill="var(--u3)"/></g><circle cx="14" cy="160" r="8" fill="var(--u3)"/><circle cx="300" cy="120" r="8" fill="var(--u2)"/></svg></section>
+  <div class="passes">${UNITS.map(u=>{const p=unitPct(u);return `<button class="pass ${u.id}" data-u="${u.id}"><div class="stub"><span class="em">${u.cover}</span><b>Part ${u.n}</b></div>
+  <div class="mid"><h2>${u.name}${p>=70?'<span class="stamp">Stamped</span>':''}</h2><div class="g">${u.gram}</div><div class="t">${u.obj}</div><div class="bar" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><i style="width:${p}%"></i></div></div>
+  <span class="go">${p?'Continue':'Start'}</span></button>`}).join('')}</div>
+  <p class="note">Sound uses your device's English voice. If you hear nothing, check your volume and silent mode. Your progress is saved on this device.</p>`;
+  document.querySelectorAll('.pass').forEach(b=>b.onclick=()=>location.hash=b.dataset.u);
+}
+function unitPage(u){
+  $('#app').innerHTML=`<div class="uhead"><div class="g">Part ${u.n}</div><h1>${u.name}</h1><div class="g">Grammar: ${u.gram} (${u.tag})</div><p class="obj"><b>Goal:</b> ${u.obj}</p>${u.examples.map(e=>`<div class="exline">${spk(e)}<span>${esc(e)}</span></div>`).join('')}
+  <div class="bar"><i style="width:${unitPct(u)}%"></i></div></div>
+  <div class="tiles">${ACTS.map(k=>{const m=meta(u,k);return `<button class="tile ${k==='create'?'final':''}" data-k="${k}"><span class="ic">${IC[k]}</span><h3>${m[0]}</h3><p>${k==='create'?'Final activity · ':''}${m[1]}</p>${starsHTML(stk(u,k))}</button>`}).join('')}</div>`;
+  document.querySelectorAll('.tile').forEach(b=>b.onclick=()=>location.hash=u.id+'-'+b.dataset.k);
+}
+
+/* ---------- finish ---------- */
+function finish(root,ctx,c,t,starsOverride){
+  const r=t?c/t:1;const st=starsOverride!=null?starsOverride:(r>=.9?3:r>=.7?2:r>=.4?1:0);
+  const key=ctx.u.id+'-'+ctx.k;S.stars[key]=Math.max(S.stars[key]||0,st);S.xp+=Math.max(10,c*10);save();topbar();
+  st?sfx.win():sfx.bad();
+  const msg=st===3?'Excellent work!':st===2?'Very good!':st===1?'Good start. Try again for more stars.':'Keep practicing. You can do it!';
+  const i=ACTS.indexOf(ctx.k),nx=ACTS[i+1];
+  root.innerHTML=`<div class="res"><h2>${msg}</h2>${starsHTML(st,'big')}<p class="center muted">${t>1?`You got ${c} of ${t}.`:'Activity complete.'} +${Math.max(10,c*10)} XP</p>
+  <div class="row center"><button class="btn ghost" id="again">Try again</button>${nx?`<button class="btn" id="nxt">Next: ${meta(ctx.u,nx)[0]}</button>`:`<button class="btn" id="nxt">Back to unit</button>`}</div></div>`;
+  $('#again').onclick=()=>ENG[ctx.k](root,ctx);
+  $('#nxt').onclick=()=>location.hash=nx?ctx.u.id+'-'+nx:ctx.u.id;
+}
+const spk=(t,cls)=>`<button class="spk ${cls||''}" data-say="${esc(plain(t))}" aria-label="Listen">${IC.listen}</button>`;
+
+/* ---------- engines ---------- */
+const ENG={};
+ENG.learn=(root,ctx)=>{
+  const d=ctx.u.vocab;let i=0,flip=false;const seen=new Set();
+  function show(auto){seen.add(i);const c=d[i];
+    root.innerHTML=`<div class="prog"><i style="width:${seen.size/d.length*100}%"></i></div>
+    <div class="meta"><span>Card ${i+1} of ${d.length}</span><span>Tap the card to see Spanish</span></div>
+    <button class="flash ${flip?'is-flip':''}" id="fl" aria-label="Flip card"><span class="face front"><span class="big-emoji">${c[0]}</span><span class="word">${c[1]}</span></span>
+    <span class="face back"><span class="word">${c[2]}</span><span class="ex">${fmt(c[3])}</span></span></button>
+    <div class="row center"><button class="btn ghost" id="pv" ${i?'':'disabled'}>Back</button>
+    <button class="btn ghost" data-say="${esc(c[1])}">${IC.listen}Word</button><button class="btn ghost" data-say="${esc(plain(c[3]))}">${IC.listen}Sentence</button>
+    <button class="btn" id="nx" ${i<d.length-1?'':'disabled'}>Next</button></div>
+    ${seen.size===d.length?'<div class="row center"><button class="btn big" id="dn">I know these words</button></div>':''}`;
+    $('#fl').onclick=()=>{flip=!flip;sfx.tap();show();speak(flip?plain(c[3]):c[1])};
+    $('#pv').onclick=()=>{i--;flip=false;show();speak(d[i][1])};
+    $('#nx').onclick=()=>{i++;flip=false;show();speak(d[i][1])};
+    if($('#dn'))$('#dn').onclick=()=>finish(root,ctx,1,1,3);
+  }
+  show();speak(d[0][1]);
+};
+ENG.rule=(root,ctx)=>{
+  const R=ctx.u.rule,p=R.picker;
+  root.innerHTML=`<div class="picker"><h3>${p.title}</h3><div class="chips">${p.items.map((x,k)=>`<button class="pill" data-k="${k}">${x[0]}</button>`).join('')}</div><div class="result" id="rs" aria-live="polite">Pick a subject…</div></div>
+  ${R.secs.map(s=>`<div class="sec"><h3>${s.h}</h3><p>${fmt(s.b)}</p>${s.ex.map(e=>`<div class="exline">${spk(e)}<span>${fmt(e)}</span></div>`).join('')}<details><summary>En español</summary><p>${esc(s.es)}</p></details></div>`).join('')}
+  <div class="row center"><button class="btn big" id="dn">I understand</button></div>`;
+  root.querySelectorAll('.pill').forEach(b=>b.onclick=()=>{root.querySelectorAll('.pill').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const it=p.items[+b.dataset.k];const s=p.tpl.replace('{p}',it[0]).replace('{a}',it[1]);$('#rs').innerHTML=fmt(s);sfx.tap();speak(plain(s))});
+  $('#dn').onclick=()=>finish(root,ctx,1,1,3);
+};
+ENG.match=(root,ctx)=>{
+  const m=ctx.u.match,n=m.pairs.length;
+  const L=shuffle(m.pairs.map((p,k)=>({t:p[0],k}))),R=shuffle(m.pairs.map((p,k)=>({t:p[1],k})));
+  let sel=null,done=new Set(),miss=0;
+  function draw(){
+    root.innerHTML=`<div class="prog"><i style="width:${done.size/n*100}%"></i></div><div class="meta"><span>Tap one word, then its match</span><span>${done.size}/${n}</span></div>
+    <div class="cols"><div class="col"><h4>${m.h[0]}</h4>${L.map(x=>`<button class="m ${done.has(x.k)?'ok':''} ${sel&&sel.s==='L'&&sel.k===x.k?'sel':''}" data-s="L" data-k="${x.k}">${esc(x.t)}</button>`).join('')}</div>
+    <div class="col"><h4>${m.h[1]}</h4>${R.map(x=>`<button class="m ${done.has(x.k)?'ok':''} ${sel&&sel.s==='R'&&sel.k===x.k?'sel':''}" data-s="R" data-k="${x.k}">${esc(x.t)}</button>`).join('')}</div></div>`;
+    root.querySelectorAll('.m').forEach(b=>b.onclick=()=>{
+      const s=b.dataset.s,k=+b.dataset.k;sfx.tap();
+      if(!sel||sel.s===s){sel={s,k};const w=(s==='L'?m.pairs[k][0]:(m.eng?m.pairs[k][1]:null));if(w)speak(w);return draw()}
+      if(sel.k===k){done.add(k);sfx.ok();speak(m.pairs[k][0]+(m.eng?'. '+m.pairs[k][1]:''));sel=null;draw();if(done.size===n)setTimeout(()=>finish(root,ctx,n,n+miss),700)}
+      else{miss++;sfx.bad();b.classList.add('shake');sel=null;setTimeout(draw,300)}
+    });
+  }
+  draw();
+};
+function quiz(root,ctx,qs,mode){
+  let i=0,c=0,ans=false;const total=qs.length;
+  function show(){
+    ans=false;const q=qs[i],right=q.opts[q.ans];
+    const opts=mode==='sort'?q.opts.slice():shuffle(q.opts.slice());
+    let head='';
+    if(mode==='climb')head=`<div class="mount"><svg viewBox="0 0 100 60" aria-hidden="true"><polygon points="0,60 50,4 100,60" fill="var(--line)"/><polygon points="50,4 41,18 46,15 50,19 54,15 59,18" fill="var(--surface)"/><polygon points="50,4 100,60 62,60" fill="color-mix(in srgb,var(--uc) 22%,var(--line))"/></svg><span class="flag">🚩</span><span class="climber" id="cl" style="left:${5*c+3}%;bottom:${9.3*c+4}%">🧗</span></div>`;
+    if(mode==='listen')head=`<button class="bigplay" data-say="${esc(q.say)}" aria-label="Play the sentence">${IC.listen}<span>Tap to hear</span></button><div class="said" id="said"></div>`;
+    else if(mode==='sort')head=`<div class="sortcard">${spk(q.q,'round')}<span class="sortword">${esc(q.q)}</span></div>`;
+    else head+=`<p class="qtext">${fmt(q.q).replace('___','<span class="blank" id="bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>')}</p>`;
+    root.innerHTML=`<div class="prog"><i style="width:${i/total*100}%"></i></div><div class="meta"><span>Question ${i+1} of ${total}</span><span>${c} correct</span></div>${head}
+    <div class="opts">${opts.map((o,k)=>`<button class="opt ${[...o].length<=2?'em1':''}" data-k="${k}">${esc(o)}</button>`).join('')}</div>
+    <div class="fb" id="fb" role="status"></div><div class="row"><button class="btn" id="nx" hidden>${i<total-1?'Next':'Finish'}</button></div>`;
+    root.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      if(ans)return;ans=true;const ok=opts[+b.dataset.k]===right;
+      root.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(opts[+x.dataset.k]===right)x.classList.add('ok')});
+      if(ok){c++;sfx.ok();$('#fb').className='fb ok';$('#fb').textContent=['Great!','Correct!','Well done!','Perfect!'][i%4]}
+      else{b.classList.add('bad','shake');sfx.bad();$('#fb').className='fb bad';$('#fb').innerHTML='The answer is: <b>'+esc(right)+'</b>'}
+      const bl=$('#bl');if(bl){bl.textContent=right;bl.classList.add(ok?'ok':'bad')}
+      if(mode==='fill'||(mode==='climb'&&q.q.includes('___')))setTimeout(()=>speak(q.q.replace('___',right)),450);
+      if(mode==='listen'){$('#said').textContent='“'+q.say+'”'}
+      if(mode==='sort'&&ok)setTimeout(()=>speak(q.q),400);
+      if(mode==='climb'&&ok){const cl=$('#cl');cl.style.left=(5*c+3)+'%';cl.style.bottom=(9.3*c+4)+'%'}
+      $('#nx').hidden=false;$('#nx').focus();
+    });
+    $('#nx').onclick=()=>{i++;i>=total?finish(root,ctx,c,total):show()};
+    if(mode==='listen')setTimeout(()=>speak(q.say),250);
+    if(mode==='sort')setTimeout(()=>speak(q.q),250);
+  }
+  show();
+}
+ENG.fill=(r,c)=>quiz(r,c,shuffle(c.u.fill.slice()),'fill');
+ENG.listen=(r,c)=>quiz(r,c,shuffle(c.u.listen.slice()),'listen');
+ENG.climb=(r,c)=>quiz(r,c,c.u.climb,'climb');
+ENG.sort=(r,c)=>{const s=c.u.sort;quiz(r,c,shuffle(s.items.slice()).map(x=>({q:x[0],opts:s.cats,ans:x[1]})),'sort')};
+ENG.build=(root,ctx)=>{
+  const items=ctx.u.build;let i=0,c=0;
+  function show(){
+    const it=items[i];let tries=0,finished=false;const words=it[0].split(' ').map((w,k)=>({w,k}));
+    let bank=shuffle(words.slice());if(words.length>2)while(bank.map(b=>b.w).join(' ')===it[0])bank=shuffle(bank);
+    let line=[];
+    function draw(msg,cls){
+      root.innerHTML=`<div class="prog"><i style="width:${i/items.length*100}%"></i></div><div class="meta"><span>Sentence ${i+1} of ${items.length}</span><span>${c} first-try</span></div>
+      <div class="es">${esc(it[1])}</div><div class="line ${cls==='ok'?'ok':''}" id="ln" aria-label="Your sentence">${line.map(x=>`<button class="w" data-k="${x.k}" data-a="1">${esc(x.w)}</button>`).join('')||'<span class="muted">Tap the words below</span>'}</div>
+      <div class="bank">${bank.filter(b=>!line.some(l=>l.k===b.k)).map(x=>`<button class="w" data-k="${x.k}">${esc(x.w)}</button>`).join('')}</div>
+      <div class="fb ${cls||''}" id="fb" role="status">${msg||''}</div>
+      <div class="row">${finished?`<button class="btn" id="nx">${i<items.length-1?'Next':'Finish'}</button>`:`<button class="btn" id="ck" ${line.length?'':'disabled'}>Check</button><button class="btn ghost" id="cl">Clear</button>`}${spk(it[0])}</div>`;
+      if(finished){$('#nx').onclick=()=>{i++;i>=items.length?finish(root,ctx,c,items.length):show()};return}
+      root.querySelectorAll('.w').forEach(b=>b.onclick=()=>{sfx.tap();const k=+b.dataset.k;if(b.dataset.a)line=line.filter(x=>x.k!==k);else line.push(words.find(x=>x.k===k));draw()});
+      $('#cl').onclick=()=>{line=[];draw()};
+      $('#ck').onclick=()=>{
+        if(line.map(x=>x.w).join(' ')===it[0]){if(!tries)c++;finished=true;sfx.ok();speak(it[0]);draw('Correct!','ok')}
+        else{tries++;sfx.bad();draw('Not yet. Check the word order and try again.','bad');$('#ln').classList.add('shake')}
+      };
+    }
+    draw();
+  }
+  show();
+};
+ENG.create=(root,ctx)=>{
+  const C=ctx.u.comp;let i=0;const a=[];
+  function show(){
+    if(i>=C.steps.length)return end();const s=C.steps[i];
+    root.innerHTML=`<div class="prog"><i style="width:${i/C.steps.length*100}%"></i></div><div class="meta"><span>Step ${i+1} of ${C.steps.length}</span><span>${C.title}</span></div>
+    <p class="qtext">${esc(s.q)} ${spk(s.q)}</p><div class="opts">${s.opts.map((o,k)=>`<button class="opt ${ctx.u.id==='u1'?'photo':''}" data-k="${k}"><span class="em">${o.e}</span><span>${esc(o.l)}</span></button>`).join('')}</div>`;
+    root.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{a.push(s.opts[+b.dataset.k]);sfx.ok();i++;show()});
+    setTimeout(()=>speak(s.q),200);
+  }
+  function end(){
+    const t=C.make(a);sfx.win();
+    root.innerHTML=`<div class="postcard"><small>${C.title}</small>${esc(t)}</div>
+    <div class="row"><button class="btn" data-say="${esc(t)}">${IC.listen}Read it aloud</button><button class="btn ghost" id="rs">Start over</button><button class="btn ghost" id="dn">Finish activity</button></div>
+    <p class="muted">Now read it out loud to practice your pronunciation.</p>`;
+    $('#rs').onclick=()=>{i=0;a.length=0;show()};$('#dn').onclick=()=>finish(root,ctx,1,1,3);speak(t);
+  }
+  show();
+};
+ENG.write=(root,ctx)=>{
+  const W=ctx.u.write;
+  root.innerHTML=`<h3>${W.prompt}</h3><div class="row"><button class="btn ghost" data-say="${esc(W.prompt)}">${IC.listen}Listen to the task</button></div>
+  <label for="tx" class="muted" style="display:block;margin-top:14px">Your text</label><textarea id="tx" placeholder="Write here in English…"></textarea>
+  <div class="row"><button class="btn" id="ck">Check my writing</button><button class="btn ghost" id="rd">${IC.listen}Read my text</button></div>
+  <ul class="checks" id="cks">${W.checks.map(c=>`<li>${c.l}</li>`).join('')}</ul><div id="mod"></div>`;
+  $('#rd').onclick=()=>{const v=$('#tx').value.trim();if(v)speak(v)};
+  $('#ck').onclick=()=>{
+    const v=norm($('#tx').value.trim());const n=v?v.split(/\s+/).length:0;let pass=0;
+    document.querySelectorAll('#cks li').forEach((li,k)=>{const c=W.checks[k];const ok=c.min?n>=c.min:c.re.test(v);li.className=ok?'y':'n';if(ok)pass++});
+    if(!v){$('#mod').innerHTML='<p class="fb bad">Write something first.</p>';return}
+    pass===W.checks.length?sfx.ok():sfx.bad();
+    $('#mod').innerHTML=`<div class="model"><b>Example answer</b><div class="exline">${spk(W.model)}<span>${esc(W.model)}</span></div></div>
+    <div class="row"><button class="btn" id="dn">${pass===W.checks.length?'Finish activity':'Finish with '+pass+' of '+W.checks.length}</button></div>`;
+    $('#dn').onclick=()=>finish(root,ctx,pass,W.checks.length,Math.max(1,pass));
+  };
+};
+
+route();
+</script>
+
+</body></html>
